@@ -1,0 +1,30 @@
+/* Стили для поля ввода и кнопки */
+.message-input {
+   position: fixed;
+   bottom: 0;
+   width: calc(100% - 100px);
+   background-color: #fff; /* Фон поля ввода и кнопки */
+   padding: 40px 40px; /* Подстройте отступы по вашему усмотрению, добавив 20px справа */
+   display: flex;
+   align-items: center;
+}
+
+#message-text {
+   width: 80%; /* Ширина поля ввода */
+   height: 200px; /* Высота поля ввода */
+   resize: none;
+}
+
+#send-button {
+   width: 20%; /* Ширина кнопки отправки */
+   height: 40px; /* Высота кнопки отправки */
+   margin-left: 20px; /* Отступ справа от поля ввода */
+}
+
+/* Отступ между областью чата и полем ввода сообщения */
+.chat-window {
+   height: calc(100% - 2400px); /* Уменьшьте на 60px для отступа сверху и снизу */
+   background-color: #fff9c0; /* Желтоватый фон */
+   border: 1px solid #ccc; /* Рамка */
+   overflow-y: scroll;
+}
