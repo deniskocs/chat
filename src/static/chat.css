@@ -28,3 +28,56 @@
    border: 1px solid #ccc; /* Рамка */
    overflow-y: scroll;
 }
+
+.dialog {
+   display: none;
+   position: fixed; /* Фиксированное позиционирование относительно вьюпорта */
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%); /* Центрирование диалога */
+   width: 80%; /* или любая фиксированная ширина */
+   border: 1px solid #ccc;
+   background-color: #fff;
+   padding: 20px;
+   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+   z-index: 1001;
+ }
+ 
+ .dialog-row {
+   width: 100%; /* Занимает всю ширину родительского элемента */
+   margin-bottom: 10px; /* Отступ снизу для каждого поля */
+ }
+
+#filename {
+   width: 100%; /* Занимает всю ширину родительского элемента */
+   box-sizing: border-box;
+}
+
+#actual_content,
+#expected_content {
+  width: 100%; /* Занимает всю ширину родительского элемента */
+  height: 300px;
+  box-sizing: border-box; /* Учитывать padding и border в ширине элемента */
+}
+
+#saveButton {
+  width: auto; /* Позволяет кнопке занимать только необходимую ширину */
+  padding: 10px 20px; /* Паддинг для кнопки */
+}
+
+.overlay {
+   display: none;
+   position: fixed; /* Фиксированное позиционирование относительно вьюпорта */
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный фон */
+   z-index: 1000; /* Убедитесь, что оверлей находится выше всех других элементов */
+ }
+ .codearea {
+   width: 100%;
+   height: 100px;
+   margin-top: 10px;
+   font-family: monospace;
+ }

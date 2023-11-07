@@ -1,8 +1,10 @@
+const apiAddress = "http://10.0.0.8:8080"
+
 // Пример отправки сообщения через API
 function sendMessage(message) {
    addMessageToChat(message, true);
    const messageData = { message: message };
-   fetch('http://10.0.0.8:8080/chat', {
+   fetch(apiAddress + '/chat', {
        method: 'POST',
        body: JSON.stringify(messageData),
        headers: {
@@ -11,11 +13,25 @@ function sendMessage(message) {
    })
    .then(response => response.json())
    .then(data => {
-	addMessageToChat(data.message, false);
+        if (data.type === 'answer') {
+            addMessageToChat(data.message, false); // Обрабатываем как обычный ответ
+        } else if (data.type === 'query' && data.query.type === 'save') {
+            // Если тип запроса 'save', отображаем диалог
+            showSaveDialog(data.query.data.file, data.query.data.content);
+        }
    })
    .catch(error => {
        console.error('Ошибка при отправке сообщения:', error);
    });
+}
+
+function showSaveDialog(filename, content) {
+    // Здесь код для открытия вашего диалогового окна с полями filename и content
+    // Пример:
+    document.getElementById('filename').value = filename;
+    document.getElementById('actual_content').value = content;
+    document.getElementById('dialog').style.display = 'block';
+    document.getElementById('overlay').style.display = 'block';
 }
 
 // Обработка события нажатия на кнопку "Отправить"

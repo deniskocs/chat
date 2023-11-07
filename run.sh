@@ -1,1 +1,1 @@
-docker run -p 8080:80 --env-file env.config my-nginx-app
+docker run -p 80:80 ai-chat

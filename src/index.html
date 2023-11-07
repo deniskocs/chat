@@ -12,6 +12,28 @@
        <textarea id="message-text" rows="4" cols="50" placeholder="Введите сообщение"></textarea>
        <button id="send-button">Отправить</button>
    </div>
+   <!-- Подложка -->
+   <div id="overlay" class="overlay"></div>
+
+   <!-- Диалоговое окно -->
+   <div id="dialog" class="dialog">
+      <div class="dialog-row">
+         File name<br>
+         <input type="text" id="filename" readonly>
+       </div>
+       <div class="dialog-row">
+         Content to save<br>
+         <textarea id="actual_content" readonly></textarea>
+       </div>
+       <div class="dialog-row">
+         Expected content<br>
+         <textarea id="expected_content"></textarea>
+       </div>
+       <div class="dialog-row">
+         <button id="saveButton">Сохранить</button>
+       </div>
+   </div>
+
    <script src="static/chat.js"></script>
 </body>
 </html>
