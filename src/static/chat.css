@@ -48,13 +48,8 @@
    margin-bottom: 10px; /* Отступ снизу для каждого поля */
  }
 
-#filename {
-   width: 100%; /* Занимает всю ширину родительского элемента */
-   box-sizing: border-box;
-}
-
-#actual_content,
-#expected_content {
+#actual-content,
+#expected-content {
   width: 100%; /* Занимает всю ширину родительского элемента */
   height: 300px;
   box-sizing: border-box; /* Учитывать padding и border в ширине элемента */

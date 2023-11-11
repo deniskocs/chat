@@ -26,7 +26,7 @@ function sendMessage(message) {
 }
 
 function sendSaveMessage(message) {
-   fetch(apiAddress + '/chat', {
+   fetch(apiAddress + '/save', {
        method: 'POST',
        body: JSON.stringify(message),
        headers: {
