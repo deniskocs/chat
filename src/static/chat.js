@@ -25,36 +25,55 @@ function sendMessage(message) {
    });
 }
 
+function sendSaveMessage(message) {
+   fetch(apiAddress + '/chat', {
+       method: 'POST',
+       body: JSON.stringify(message),
+       headers: {
+           'Content-Type': 'application/json'
+       }
+   })
+   .then(response => response.json())
+   .then(data => {
+        hideSaveDialog()
+   })
+   .catch(error => {
+       console.error('Ошибка при отправке сообщения:', error);
+   });
+}
+
+
+function hideSaveDialog() {
+    document.getElementById('dialog').style.display = 'none';
+    document.getElementById('overlay').style.display = 'none';
+}
+
+
 function showSaveDialog(filename, content) {
-    // Здесь код для открытия вашего диалогового окна с полями filename и content
-    // Пример:
-    document.getElementById('filename').value = filename;
-    document.getElementById('actual_content').value = content;
+    document.getElementById('actual-content').value = content;
     document.getElementById('dialog').style.display = 'block';
     document.getElementById('overlay').style.display = 'block';
 }
 
-// Обработка события нажатия на кнопку "Отправить"
+document.getElementById('cancel-save-dialog-button').addEventListener('click', function () {
+   hideSaveDialog();
+});
+
+document.getElementById('save-button').addEventListener('click', function () {
+   const messageInput = document.getElementById('expected-content');
+   const messageText = messageInput.value.trim();
+
+   sendSaveMessage(messageText);
+});
+
+
 document.getElementById('send-button').addEventListener('click', function () {
    const messageInput = document.getElementById('message-text');
    const messageText = messageInput.value.trim();
 
    if (messageText !== '') {
        sendMessage(messageText);
-       messageInput.value = ''; // Очистить поле ввода после отправки
-   }
-});
-
-// Можно также добавить обработку нажатия клавиши Enter для отправки сообщения
-document.getElementById('message-text').addEventListener('keyup', function (event) {
-   if (event.key === 'Enter') {
-       const messageInput = document.getElementById('message-text');
-       const messageText = messageInput.value.trim();
-
-       if (messageText !== '') {
-           sendMessage(messageText);
-           messageInput.value = ''; // Очистить поле ввода после отправки
-       }
+       messageInput.value = '';
    }
 });
 
