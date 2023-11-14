@@ -1,5 +1,5 @@
 # Используйте образ Nginx для развертывания приложения
-FROM nginx:latest
+FROM nginx:stable
 
 # Копируйте статические файлы в каталог, который Nginx будет обслуживать
 COPY src/ /usr/share/nginx/html

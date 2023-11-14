@@ -48,6 +48,16 @@
    margin-bottom: 10px; /* Отступ снизу для каждого поля */
  }
 
+#code-container {
+  width: 100%;
+  height: 300px;
+  box-sizing: border-box;
+  overflow: auto;
+  border: 1px solid #ddd; /* Опционально, для визуального отделения контейнера */
+  padding: 10px; /* Опционально, для отступов внутри контейнера */
+  font-family: monospace; 
+}
+
 #actual-content,
 #expected-content {
   width: 100%; /* Занимает всю ширину родительского элемента */

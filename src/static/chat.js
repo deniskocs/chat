@@ -17,7 +17,7 @@ function sendMessage(message) {
             addMessageToChat(data.message, false); // Обрабатываем как обычный ответ
         } else if (data.type === 'query' && data.query.type === 'save') {
             // Если тип запроса 'save', отображаем диалог
-            showSaveDialog(data.query.data.file, data.query.data.content);
+            showSaveDialog(data.query.data.prompt, data.query.data.content, data.message);
         }
    })
    .catch(error => {
@@ -26,9 +26,10 @@ function sendMessage(message) {
 }
 
 function sendSaveMessage(message) {
+   json_message = JSON.parse(message)
    fetch(apiAddress + '/save', {
        method: 'POST',
-       body: JSON.stringify(message),
+       body: JSON.stringify(json_message),
        headers: {
            'Content-Type': 'application/json'
        }
@@ -49,8 +50,10 @@ function hideSaveDialog() {
 }
 
 
-function showSaveDialog(filename, content) {
-    document.getElementById('actual-content').value = content;
+function showSaveDialog(prompt, content, answer) {
+    addMessageToChat(answer, false);
+    document.getElementById('expected-content').value = content;
+    document.getElementById('actual-code').textContent = prompt;
     document.getElementById('dialog').style.display = 'block';
     document.getElementById('overlay').style.display = 'block';
 }
@@ -65,7 +68,6 @@ document.getElementById('save-button').addEventListener('click', function () {
 
    sendSaveMessage(messageText);
 });
-
 
 document.getElementById('send-button').addEventListener('click', function () {
    const messageInput = document.getElementById('message-text');
