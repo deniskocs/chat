@@ -11,12 +11,16 @@ class RefineDialog {
 
     didTapSaveButton() {
         const messageInput = document.getElementById('expected-content');
-        const messageText = messageInput.value.trim();
+        const content = messageInput.value.trim();
 
-        this.saveExample(messageText);
+        this.saveExample(content);
     }
 
-    show(prompt, content) {
+    show(prompt, content, agent, callback) {
+        this.prompt = prompt
+        this.agent = agent
+        this.callback = callback
+        
         document.getElementById('expected-content').value = content;
         document.getElementById('actual-code').textContent = prompt;
         
@@ -30,13 +34,17 @@ class RefineDialog {
     }
 
 
-    saveExample(prompt, content) {
+    saveExample(content) {
+        const apiAddress = "http://10.0.0.8:8080"
+
         const json = {
-            "prompt": prompt,
+            "type": "refine",
+            "agent_name": this.agent,
+            "prompt": this.prompt,
             "content": content
         }
 
-        fetch(apiAddress + '/save', {
+        fetch(apiAddress + '/chat', {
             method: 'POST',
             body: JSON.stringify(json),
             headers: {
@@ -45,7 +53,8 @@ class RefineDialog {
         })
         .then(response => response.json())
         .then(data => {
-             this.hide()
+            this.hide()
+            this.callback(data)
         })
         .catch(error => {
             console.error('Ошибка при отправке сообщения:', error);

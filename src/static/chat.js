@@ -23,7 +23,10 @@ class Chat {
 
     sendMessage(message) {
         this.addMessage(message, true);
-        const messageData = { message: message };
+        const messageData = { 
+            type: "user_input",
+            message: message 
+        };
         fetch(apiAddress + '/chat', {
             method: 'POST',
             body: JSON.stringify(messageData),
@@ -33,15 +36,30 @@ class Chat {
         })
         .then(response => response.json())
         .then(data => {
-             if (data.type === 'answer') {
-                 addMessageToChat(data.message, false); // Обрабатываем как обычный ответ
-             } else if (data.type === 'query' && data.query.type === 'save') {
-                 this.refineDialog.show(data.query.data.prompt, data.query.data.content);
-             }
+            this.processResponse(data)
         })
         .catch(error => {
             console.error('Ошибка при отправке сообщения:', error);
         });
+     }
+
+     processResponse(response) {
+        switch (response.type) {
+            case "answer":
+                this.addMessage(response.message, false);
+                break;
+            case "refine":
+                this.processRefineRequest(response.data);
+            default:
+                break;
+        }
+     }
+
+     processRefineRequest(refineRequest) {
+        const data = refineRequest.data;
+        this.refineDialog.show(data.prompt, data.content, refineRequest.agent, data => {
+            this.processResponse(data)
+        });      
      }
 
      addMessage(message, isUserMessage) {
